@@ -51,6 +51,7 @@ public class Controller {
     }
 
     private void pridejVychody(Prostor prostor) {
+        seznamVychodu.setSpacing(10);
         seznamVychodu.getChildren().clear();
         for (Prostor p : prostor.getVychody()) {
             HBox vychod = new HBox();
@@ -75,6 +76,7 @@ public class Controller {
 
     private void pridejPredmety(Prostor prostor) {
         seznamPredmetuVMistnosti.getChildren().clear();
+        seznamPredmetuVMistnosti.setSpacing(10);
 
         for (Vec vec : prostor.getSeznamVeci()) {
            pridejPredmetDoMistnosti(vec);
@@ -90,14 +92,16 @@ public class Controller {
             if (vec.jePrenositelna()) {
                 hra.zpracujPrikaz("seber " + vec.getJmeno());
                 HBox vecVBatohu = vytvorHBoxPredmet(vec);
+                seznamPredmetuVBatohu.setSpacing(10);
                 seznamPredmetuVBatohu.getChildren().add(vecVBatohu);
-                pridejPredmety(hra.getHerniPlan().getAktualniProstor());
-
+                //pridejPredmety(hra.getHerniPlan().getAktualniProstor());
+                seznamPredmetuVMistnosti.getChildren().remove(predmet);
 
                 vecVBatohu.setOnMouseClicked(event1 -> {
                     hra.zpracujPrikaz("poloz "+vec.getJmeno());
                     seznamPredmetuVBatohu.getChildren().remove(vecVBatohu);
                     pridejPredmetDoMistnosti(vec);
+
                 });
             }
         });
